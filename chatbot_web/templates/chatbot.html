@@ -1,0 +1,13 @@
+{% extends 'base.html' %}
+<!-- templates/chatbot.html -->
+ {% block title %} Chatbot {% endblock %}
+{% block content %}
+<div class="chat-container">
+ <div class="chat-header">Bone Fracture Detection Chatbot</div>
+ <div class="chat-history">  </div>
+<div class="chat-input-area">
+<input type="file" id="image-input" accept="image/*">
+<button id="send-btn" class="send-button">Analyze</button>
+</div>
+</div>
+{% endblock %}
