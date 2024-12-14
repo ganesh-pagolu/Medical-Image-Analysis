@@ -1,0 +1,54 @@
+
+<!DOCTYPE html>
+<html lang="en">
+ <head>
+     <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+   <title>Login</title>
+     <link rel="stylesheet" href="{{ url_for('static', filename='css/login.css') }}">
+
+  </head>
+
+  <body style="background-color:#2b2b2b; color:#fff;">
+
+<div class="transparent-form">
+
+      <h2>Login</h2>
+
+       {% with messages = get_flashed_messages() %}
+        {% if messages %}
+      <ul>
+           {% for message in messages %}
+
+          <li>{{ message }}</li>
+     {% endfor %}
+      </ul>
+     {% endif %}
+
+   {% endwith %}
+
+<form method="POST" >
+  <div class="form-row">
+         <label for="email">Email:</label>
+
+    <input type="text" id="email" name="email" required>
+</div>
+
+<div class="form-row">
+  <label for="password">Password:</label>
+  <input type="password" id="password" name="password" required>
+   </div>
+
+ <button type="submit" class="log-button">Login</button>
+
+
+<p style="margin-top: 15px;">Don't have an account?
+  <div></div>
+      <button class="reg-button"><a  href="{{ url_for('register') }}" class="button"> Register</a>
+      </p></button>
+
+     </form>
+
+      </div>
+ </body>
+</html>

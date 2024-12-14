@@ -1,0 +1,75 @@
+.transparent-form {
+     background: rgba(255, 255, 255, 0.1);
+  border-radius: 10px;
+       padding: 20px;
+         box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+
+  max-width: 400px;
+  margin: 50px auto;
+  display : flex ;
+      flex-direction:column ;/* with same flex or style tag*/
+
+ align-items : stretch ; /* and alignment of layouts /html*/
+     }
+
+    /* here is set only by html class layout , by using tag style selector.   where HTML id's or  type/tag /layouts  set specific css to element or those hierarchy or layouts style properties. This code handle form div ( which is `parent container view also layouts ) all style and component in HTML template views`
+*/
+ .transparent-form .form-row {
+
+ display: flex; /* style and all other css based attributes or flex based layouts etc are here . use these properly.*/
+align-items: center;
+   margin-bottom : 15px;  /* proper view of those inputs text labels and sections view properties are set as layouts.  for the section/forms component view on web from pure css  layout properties. where from this scope the attributes is active only*/
+}
+
+     .transparent-form .form-row label {
+
+  color:white;
+  display: inline-block;
+ width : 100px;
+
+
+    }
+
+    .transparent-form .form-row input{
+flex : 1;
+  padding :10px ; /* padding value will be same too */
+
+       background-color: #4b4b4b; /* hex values using style rules from the project theme in css. other layouts follow a consistent view and UI properties from theme and style. if required new attributes is only to code from single/ root place by pure style code properties from this css*/
+
+        border : 1px solid #717171 ;
+
+        color: white ; /* also those colors can set */
+
+         }
+    .transparent-form h2{
+
+         text-align:center;
+margin-bottom : 20px; /* if those styles needed to layout in forms from this tags */
+     }
+
+ .transparent-form p{
+
+      text-align:center;/* setting some  defaults, for paragraph view layouts  / styles from css also you will modify css value as properties using correct css selector methods and from layouts. now*/
+       }
+  .log-button{
+     margin-left: 170px;
+    height: 35px;
+    width: 66px;
+    cursor: pointer;
+  }
+  a{
+     text-decoration: none;
+     color: black;
+  }
+
+  .reg-button{
+     margin-left: 15px;
+  }
+  
+
+  /*
+ style for  the submit button with all properties  set also same style layout
+  that applies to register link too ( to set proper styling ) or all `<a> ` tags ( using only those that set style properties at specific css with selectors using these properties )
+       we can use as single rule using specific HTML layout classes or properties tags view at each HTML code,
+    by this code snippet.  (also those styles also same used with same classname on html code where that is intended for specific parts )
+   */
