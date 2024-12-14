@@ -1,0 +1,15 @@
+.transparent-form {
+  background: rgba(255, 255, 255, 0.1);
+ border-radius: 10px;
+
+padding: 20px;
+box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);/* also for specific  box element for shadow like the others. by setting up those values with those selector styles by css layout here also from html tag elements property name of components also for the css styles rule and settings at single point now from your projects style from these edits */
+max-width: 400px;
+   margin: 50px auto; /* style for each layouts properties at element like container view also positions to align them in page view  at proper  position from styles*/
+}
+
+.transparent-form input { /* html input with text related tag */
+border: none;  /* removes and use design property or style for that also other tags with this selector html elements of our views. to use same single rule set of css*/
+
+
+}

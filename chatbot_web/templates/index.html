@@ -1,12 +1,21 @@
 {% extends 'base.html' %}
+{% block title %}Smart Diagnostic AI Solutions{% endblock %}
 
- {% block title %}Home{% endblock %}
- {% block content %}
-     <div class="home-page">
-        <h1> Welcome to Bone Fracture Detection System! </h1>
-          <p> Upload images, or analyze bone related injury, and use fracture detections. </p>
-           <section >
-         <a  href="{{ url_for('chatbot') }}" class = "button" > Bone Fracture Detection Chatbot</a>
-        </section>
+{% block content %}
+   <div class="home-page">
+          <h1> SmartDiagnostic Imaging AI solutions</h1>
+            <p>  AI is transforming the field of medical image analysis,
+                 enabling faster, more accurate diagnoses and personalized treatment plans.
+               Our cutting-edge AI models  detect and classify  disease-related markers,
+                to assist health-care specialists to use our services. </p>
+           <section class ="home-action-btn">
+                {% if current_user.is_authenticated %}
+             <a href="{{ url_for('chatbot') }}" class="button">Go to Chatbot</a>
+              {% else %}
+                <a href="{{ url_for('login') }}" class="button"> Login here </a>
+
+            {% endif %}
+       </section>
+
   </div>
- {% endblock %}
+{% endblock %}
