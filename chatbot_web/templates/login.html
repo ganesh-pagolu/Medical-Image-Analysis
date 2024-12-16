@@ -1,17 +1,30 @@
-
 <!DOCTYPE html>
 <html lang="en">
- <head>
-     <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-   <title>Login</title>
-     <link rel="stylesheet" href="{{ url_for('static', filename='css/login.css') }}">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/login.css') }}">
+</head>
+<body>
+  <header>
+    <nav class="nav_part">
+      <a href="{{ url_for('home') }}">Home</a>
+      <a href="{{ url_for('about') }}">About Us</a>
+      <a href="{{ url_for('contact') }}">Contact Us</a>
 
-  </head>
+     <!-- You may not need login / logout button on login page, please remove if required -->
+       <!-- {% if current_user.is_authenticated %}
+        <a href="{{ url_for('logout') }}">Logout</a>
+      {% else %}
+          <a  href="{{ url_for('login') }}">Login</a>
+        <a  href="{{ url_for('register') }}">Signup</a>
+     {% endif %} -->
+    </nav>
+  </header>
 
-  <body style="background-color:#2b2b2b; color:#fff;">
-
-<div class="transparent-form">
+  <main>
+       <div class="transparent-form">
 
       <h2>Login</h2>
 
@@ -50,5 +63,12 @@
      </form>
 
       </div>
- </body>
+  </main>
+
+  <footer>
+    <p>© 2024 Medical AI. All rights reserved. |
+        <a href="https://github.com/yourgithub" target="_blank">Github</a>
+         <a href="https://linkedin.com/in/yourlinkedin" target="_blank">LinkedIn</a></p>
+</footer>
+</body>
 </html>
