@@ -122,10 +122,40 @@ body {
    color: black;
  }
  
- .reg-button {
-   margin-left: 15px;
-   background-color: azure;
- }
+ /* "Don't have an account?" container styles */
+.donthaveacc {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 15px;
+  color: #ffffff;
+  font-size: 14px;
+}
+
+/* Register Button Styles */
+.reg-button {
+  margin-left: 10px;
+  padding: 8px 15px;
+  background-color: #80328a;
+  border: none;
+  border-radius: 5px;
+  color: #ffffff;
+  font-size: 14px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.reg-button a {
+  text-decoration: none;
+  color: #ffffff;
+}
+
+.reg-button:hover {
+  background-color: #5e2767;
+  transform: scale(1.05);
+}
+
  
  /* Footer */
  footer {

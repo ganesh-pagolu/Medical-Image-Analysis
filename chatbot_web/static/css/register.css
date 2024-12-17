@@ -56,6 +56,7 @@ main {
    display: flex;
    align-items: center;
    justify-content: center;
+   padding-top: 60px;
 }
 
 /* Transparent Form Container */
@@ -77,65 +78,104 @@ main {
 }
 
 .transparent-form .form-row {
- display: flex;
+   display: flex;
    align-items: center;
- margin-bottom: 15px;
-}
-.transparent-form .form-row label {
- color: white;
-   display: inline-block;
- width: 130px;
+   margin-bottom: 15px;
 }
 
+.transparent-form .form-row label {
+   color: white;
+   display: inline-block;
+   width: 130px;
+}
 
 .transparent-form .form-row input {
-     flex: 1;
- padding: 10px;
-     background-color: #4b4b4b;
-    border: 1px solid #717171;
-    color: white;
- border-radius: 5px;
-
- }
-
-
+   flex: 1;
+   padding: 10px;
+   background-color: #4b4b4b;
+   border: 1px solid #717171;
+   color: white;
+   border-radius: 5px;
+}
 
 .transparent-form p {
    text-align: center;
-   color:#fff;
+   color: #fff;
 }
 
+/* Center the register button */
+.button-row {
+   display: flex;
+   justify-content: center;
+   margin-top: 20px;
+}
 
-/* Button styles for this file only in this context.
-     other will take general styles with .button selector   */
-
- .button {
-     display: inline-block;
-     text-decoration: none;
-     background-color: #4d217b;
-     color: #fff;
-     padding: 12px 20px;
-      border-radius: 5px;
-     font-size: 16px;
-     font-weight: bold;
-    margin-top: 20px;
-      transition: all 0.3s ease;
-     border: none;
-
+/* Button styles */
+.button {
+   display: inline-block;
+   text-decoration: none;
+   background-color: #4d217b;
+   color: #fff;
+   padding: 12px 20px;
+   border-radius: 5px;
+   font-size: 16px;
+   font-weight: bold;
+   transition: all 0.3s ease;
+   border: none;
 }
 
 .button:hover {
-    background-color: #151a32;
+   background-color: #151a32;
+   transform: scale(1.05);
+}
 
-   }
-  
+/* Login section styles */
+/* Login section styles */
+.login-section {
+   display: flex;
+   justify-content: center;
+   align-items: center;
+   gap: 10px; /* Space between the text and button */
+   margin-top: 15px;
+}
+
+.login-section p {
+   margin: 0;
+   font-size: 14px;
+   color: #ffffff;
+}
+
+/* Login button styling */
+.login-button {
+   background-color: #4d217b;
+   color: #ffffff;
+   padding: 10px 20px;
+   border: none;
+   border-radius: 5px;
+   cursor: pointer;
+   font-size: 14px;
+   font-weight: bold;
+   transition: all 0.3s ease;
+}
+
+.login-button a {
+   text-decoration: none;
+   color: #ffffff;
+}
+
+.login-button:hover {
+   background-color: #80328a;
+   transform: scale(1.05);
+}
+
+
 /* Footer */
 footer {
    background-color: #320a4b;
    color: #fff;
    text-align: center;
    padding: 15px;
-    margin-top: 20px;
+   margin-top: 20px;
 }
 
 footer a {

@@ -4,134 +4,16 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Contact Us</title>
-  <style>
-    body {
-      font-family: 'Arial', sans-serif;
-      margin: 0;
-      padding: 0;
-      background: #ecf0f1;
-      color: #2c3e50;
-    }
-
-    header {
-      background: linear-gradient(to right, #3498db, #9b59b6);
-      padding: 20px;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-    }
-
-    header h1 {
-      color: #ffffff;
-      margin: 0 20px;
-      font-size: 2.1rem;
-    }
-
-    .nav_part {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
-
-    .nav_part a {
-      display: inline-block;
-      background: #ffffff;
-      color: #34495e;
-      text-decoration: none;
-      margin: 5px;
-      padding: 8px 15px;
-      font-weight: bold;
-      border-radius: 7px;
-      transition: all 0.3s ease;
-    }
-
-    .nav_part a:hover {
-      background: #2ecc71;
-      color: #ffffff;
-      transform: scale(1.1);
-    }
-
-    .container {
-      max-width: 90%;
-      margin: 35px auto;
-      background-color: #ffffff;
-      padding: 25px;
-      border-radius: 13px;
-      box-shadow: 0 3px 8px rgba(0, 0, 0, 0.2);
-    }
-
-    h1, h2 {
-      color: #2c3e50;
-      margin-bottom: 15px;
-    }
-
-    p, li {
-      line-height: 1.7;
-    }
-
-    .contact-info {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 20px;
-      justify-content: center;
-    }
-
-    .contact-card {
-      flex: 1 1 45%;
-      background: #f9f9f9;
-      padding: 15px;
-      border-radius: 10px;
-      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-      display: flex;
-      align-items: center;
-      gap: 15px;
-      transition: transform 0.3s ease, box-shadow 0.3s ease;
-    }
-
-    .contact-card:hover {
-      transform: translateY(-5px);
-      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
-    }
-
-    .contact-card img {
-      width: 100px;
-      height: 120px;
-      border-radius: 50%;
-      object-fit: cover;
-    }
-
-    .social-media {
-      text-align: center;
-      margin-top: 20px;
-    }
-
-    .social-media a {
-      display: inline-block;
-      margin-right: 10px;
-      text-decoration: none;
-      color: #007bff;
-    }
-
-    .social-media a:hover {
-      text-decoration: underline;
-    }
-
-    footer {
-      margin-top: 35px;
-      background-color: #34495e;
-      padding: 25px;
-      color: #ffffff;
-      text-align: center;
-    }
-  </style>
+   <link rel="stylesheet" href="{{ url_for('static', filename='css/contact.css') }}">
 </head>
 <body>
   <header>
     <h1>Medical Image Analysis and Diagnosis</h1>
     <nav class="nav_part">
-      <a href="/">Home</a>
-      <a href="/about">About Us</a>
-      <a href="/contact">Contact Us</a>
+        <a href="/">Home</a>
+        <a href="/about">About Us</a>
+       <a href="/contact">Contact Us</a>
+      <a href="{{ url_for('chatbot') }}" class="button">Go to Chatbot</a>
     </nav>
   </header>
   <div class="container">
@@ -139,39 +21,39 @@
       <h2>Contact Us</h2>
       <div class="contact-info">
         <div class="contact-card">
-          <img src="indra.jpg" alt="K. Indra Veera Babu">
+          <img src="../static/images/indra.jpg" alt="K. Indra Veera Babu">
           <div>
             <p><strong>Name:</strong> K. Indra Veera Babu</p>
             <p><strong>Roll No:</strong> 21131A0573</p>
-            <p><strong>Email:</strong> 21131a0573@gvpce.ac.in</p>
+            <p><strong>Email:</strong> <a href="mailto:21131a0573@gvpce.ac.in">21131a0573@gvpce.ac.in</a></p>
             <p><strong>Mobile:</strong> 7981205052</p>
           </div>
         </div>
-        <div class="contact-card">
-          <img src="https://via.placeholder.com/100" alt="M. Manoj Kumar">
-          <div>
+          <div class="contact-card">
+            <img src="../static/images/manoj.jpg" alt="M. Manoj Kumar">
+           <div>
             <p><strong>Name:</strong> M. Manoj Kumar</p>
-            <p><strong>Roll No:</strong> 21131A05C3</p>
-            <p><strong>Email:</strong> 21131a05c3@gvpce.ac.in</p>
-            <p><strong>Mobile:</strong> 8096611739</p>
+             <p><strong>Roll No:</strong> 21131A05C3</p>
+            <p><strong>Email:</strong> <a href="mailto:21131a05c3@gvpce.ac.in">21131a05c3@gvpce.ac.in</a></p>
+           <p><strong>Mobile:</strong> 8096611739</p>
           </div>
         </div>
-        <div class="contact-card">
-          <img src="https://via.placeholder.com/100" alt="P.M.S.Ch.Ganesh">
+          <div class="contact-card">
+           <img src="../static/images/ganesh.png" alt="P.M.S.Ch.Ganesh">
           <div>
-            <p><strong>Name:</strong> P.M.S.Ch.Ganesh</p>
+           <p><strong>Name:</strong> P.M.S.Ch.Ganesh</p>
             <p><strong>Roll No:</strong> 21131A05C2</p>
-            <p><strong>Email:</strong> 21131a05c2@gvpce.ac.in</p>
-            <p><strong>Mobile:</strong> 9966913478</p>
+           <p><strong>Email:</strong> <a href="mailto:21131a05c2@gvpce.ac.in">21131a05c2@gvpce.ac.in</a></p>
+          <p><strong>Mobile:</strong> 9966913478</p>
           </div>
-        </div>
-        <div class="contact-card">
-          <img src="https://via.placeholder.com/100" alt="M. Mahesh Nayak">
+         </div>
+          <div class="contact-card">
+            <img src="../static/images/mahesh.jpg" alt="M. Mahesh Nayak">
           <div>
             <p><strong>Name:</strong> M. Mahesh Nayak</p>
-            <p><strong>Roll No:</strong> 21131A05C5</p>
-            <p><strong>Email:</strong> 21131a05c5@gvpce.ac.in</p>
-            <p><strong>Mobile:</strong> 8367428455</p>
+           <p><strong>Roll No:</strong> 21131A05C5</p>
+            <p><strong>Email:</strong> <a href="mailto:21131a05c5@gvpce.ac.in">21131a05c5@gvpce.ac.in</a></p>
+             <p><strong>Mobile:</strong> 8367428455</p>
           </div>
         </div>
       </div>
