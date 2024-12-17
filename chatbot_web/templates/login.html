@@ -55,10 +55,13 @@
  <button type="submit" class="log-button">Login</button>
 
 
-<p style="margin-top: 15px;">Don't have an account?
-  <div></div>
-      <button class="reg-button"><a  href="{{ url_for('register') }}" class="button"> Register</a>
-      </p></button>
+ <p class="donthaveacc">
+  Don't have an account? 
+  <button class="reg-button">
+    <a href="{{ url_for('register') }}" class="button">Register</a>
+  </button>
+</p>
+
 
      </form>
 

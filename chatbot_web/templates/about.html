@@ -1,108 +1,38 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>About Us</title>
-  <style>
-    body {
-      font-family: Arial, sans-serif;
-      margin: 0;
-      padding: 0;
-      background-color: #f4f4f9;
-      color: #333;
-    }
-
-    header {
-      background: linear-gradient(to right, #3498db, #9b59b6);
-      padding: 20px;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-    }
-
-    header h1 {
-      color: #ffffff;
-      margin: 0 20px;
-      font-size: 2.1rem;
-    }
-
-    .nav_part {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
-
-    .nav_part a {
-      display: inline-block;
-      background: #ffffff;
-      color: #34495e;
-      text-decoration: none;
-      margin: 0 5px;
-      padding: 8px 15px;
-      font-weight: bold;
-      border-radius: 7px;
-      transition: all 0.3s ease;
-    }
-
-    .nav_part a:hover {
-      background: #2ecc71;
-      color: #ffffff;
-    }
-
-    .container {
-      max-width: 1200px;
-      margin: 20px auto;
-      padding: 20px;
-      background: #fff;
-      border-radius: 10px;
-      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-    }
-
-    h1, h2 {
-      color: #007bff;
-    }
-
-    p {
-      line-height: 1.6;
-    }
-
-    footer {
-      background-color: #333;
-      color: #fff;
-      text-align: center;
-      padding: 10px;
-      margin-top: 20px;
-    }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About Us</title>
+     <link rel="stylesheet" href="{{ url_for('static', filename='css/about.css') }}">
 </head>
 <body>
-  <header>
+    <header>
     <h1>Medical Image Analysis and Diagnosis</h1>
-    <nav class="nav_part">
-      <a href="/">Home</a>
-      <a href="/about">About Us</a>
-      <a href="/contact">Contact Us</a>
-    </nav>
-  </header>
-
+       <nav class="nav_part">
+        <a href="/">Home</a>
+         <a href="/about">About Us</a>
+         <a href="/contact">Contact Us</a>
+            <a href="{{ url_for('chatbot') }}" class="button">Go to Chatbot</a>
+       </nav>
+    </header>
   <div class="container">
-    <section id="about-us">
-      <h2>About Us</h2>
-      <p>Welcome to <strong>Medical Image Analysis and Diagnosis</strong>, where technology meets healthcare innovation. Our platform is dedicated to advancing medical diagnostics through state-of-the-art image analysis powered by artificial intelligence and machine learning.</p>
-      <p>We aim to empower healthcare professionals with accurate, efficient, and reliable tools to analyze medical images such as X-rays, MRIs, and CT scans. By automating critical diagnostic processes, we strive to reduce human error, speed up diagnoses, and ultimately save lives.</p>
-      <p><strong>Our Values:</strong></p>
-      <ul>
-        <li>Accuracy and Reliability</li>
-        <li>Innovation and Creativity</li>
-        <li>Patient-Centric Approach</li>
-        <li>Ethical and Responsible AI</li>
-      </ul>
-    </section>
-  </div>
+      <section id="about-us">
+          <h2>About Us</h2>
+          <p>Welcome to <strong>Medical Image Analysis and Diagnosis</strong>, where technology meets healthcare innovation. Our platform is dedicated to advancing medical diagnostics through state-of-the-art image analysis powered by artificial intelligence and machine learning.</p>
+       <p>We aim to empower healthcare professionals with accurate, efficient, and reliable tools to analyze medical images such as X-rays, MRIs, and CT scans. By automating critical diagnostic processes, we strive to reduce human error, speed up diagnoses, and ultimately save lives.</p>
+        <p><strong>Our Values:</strong></p>
+         <ul>
+                <li>Accuracy and Reliability</li>
+            <li>Innovation and Creativity</li>
+             <li>Patient-Centric Approach</li>
+               <li>Ethical and Responsible AI</li>
+        </ul>
+     </section>
+    </div>
 
-  <footer>
-    <p>&copy; 2024 Medical Image Analysis and Diagnosis. All rights reserved.</p>
-  </footer>
+    <footer>
+     <p>© 2024 Medical Image Analysis and Diagnosis. All rights reserved.</p>
+ </footer>
 </body>
 </html>
