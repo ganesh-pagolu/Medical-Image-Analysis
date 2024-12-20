@@ -1,13 +1,27 @@
 {% extends 'base.html' %}
 <!-- templates/chatbot.html -->
  {% block title %} Chatbot {% endblock %}
+  {% block head %}
+      <link rel="stylesheet" href="{{ url_for('static', filename='css/chatbot.css')}}">
+  {% endblock %}
 {% block content %}
 <div class="chat-container">
  <div class="chat-header">Medical Image Diagnosis Chatbot</div>
  <div class="chat-history">  </div>
-<div class="chat-input-area">
-<input type="file" id="image-input" accept="image/*">
-<button id="send-btn" class="send-button">Analyze</button>
+ <div class="chat-input-area">
+    <div class="file-upload-wrapper">
+        <label for="image-input" class="file-label">Upload Image</label>
+        <input type="file" id="image-input" accept="image/*">
+    </div>
+
+    <div class="text-prompt-wrapper">
+        <input type="text" id="prompt-input" placeholder="Type your prompt or ask for info...">
+    </div>
+
+    <div class="button-wrapper">
+        <button id="send-btn" class="send-button">Analyze</button>
+    </div>
+</div>
 </div>
 </div>
 {% endblock %}
