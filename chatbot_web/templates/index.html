@@ -11,9 +11,9 @@
            <section class ="home-action-btn">
                 {% if current_user.is_authenticated %}
              <a href="{{ url_for('chatbot') }}" class="button">Go to Chatbot</a>
+             <a href="{{ url_for('ctscan') }}" class="button">CT Scan</a>
               {% else %}
                 <a href="{{ url_for('login') }}" class="button"> Login here </a>
-
             {% endif %}
           </section>
 
