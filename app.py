@@ -1,117 +1,97 @@
 import os
-from flask import Flask, render_template, request, jsonify, redirect, url_for, flash
 import sys
+import uuid
+import json
+import re
+from flask import Flask, render_template, request, jsonify, redirect, url_for, flash
 from flask_sqlalchemy import SQLAlchemy
 from flask_bcrypt import Bcrypt
 from flask_login import LoginManager, UserMixin, login_user, login_required, logout_user, current_user
-import re
 import google.generativeai as genai
-import uuid
-import json  
+
+# Get the directory of the current script
 app_dir = os.path.dirname(os.path.abspath(__file__))
-sys.path.append(os.path.join(app_dir, 'chatBot_web'))
-#remove if exist since no longer is used here in your models on this classes folder /Bone_Fracture_Detection or /logic
+sys.path.extend([
+    os.path.join(app_dir, 'chatBot_web'),
+    os.path.join(app_dir, 'Bone_Fracture_Detection'),
+    os.path.join(app_dir, 'MRIimage')
+])
 
-#sys.path.append(os.path.join(app_dir, 'Bone_Fracture_Detection')) #not here
-# add path import since you are reusing all logic prediction now and using only 1 module not 2 separate of Bone type from /logic  . This old path module with class we remove
-sys.path.append(os.path.join(app_dir, 'CTimage')) # import project model
-
-# Remove old logic model.
-#from logic.model_predictor import BoneFracturePredictor
-
-#import the model here instead of using it before and  now this single one do type+fracture or what models has been defined before. This will ensure only use one instead of another method  .
-from predict import api_predict # the function of other prediction
+from logic.model_predictor import BoneFracturePredictor
+from MRIimage.predict import api_predict
 
 # Set up Google API key
 GOOGLE_API_KEY = "AIzaSyB4ddlSw_AGLu40IyuPzZ9ij4DkYD6RthE"
 genai.configure(api_key=GOOGLE_API_KEY)
 model = genai.GenerativeModel("gemini-1.5-flash-8b")
 
-# Template and Static directories
+# Set up Flask application
 template_dir = os.path.join(app_dir, "chatBot_web", "templates")
 static_dir = os.path.join(app_dir, "chatBot_web", "static")
-
 app = Flask(__name__, template_folder=template_dir, static_folder=static_dir)
 
-# App Configuration
+# App configuration
 app.config['SECRET_KEY'] = 'your_secret_key_here'
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///users.db'
 
-# Initialize SQLAlchemy, Bcrypt, LoginManager
+# Initialize SQLAlchemy, Bcrypt, and LoginManager
 db = SQLAlchemy(app)
 bcrypt = Bcrypt(app)
 login_manager = LoginManager(app)
 login_manager.login_view = 'login'
 
-# Project directory structure and temporary uploads
+# Project directory structure
 project_folder = os.path.dirname(os.path.abspath(__file__))
 temp_upload_dir = os.path.join(project_folder, "temp_upload_file")
+os.makedirs(temp_upload_dir, exist_ok=True)
 
-# Remove here since not being called and this way is unique and only logic of one file
+# Initialize predictors
+bone_predictor = BoneFracturePredictor(os.path.join(project_folder, 'Bone_Fracture_Detection'))
 
-# Initialize Bone Fracture Prediction model #  REMOVE OLD MODEL
-#predictor = BoneFracturePredictor(os.path.join(project_folder, 'Bone_Fracture_Detection'))
-
-
-# User model for DB
+# User model
 class User(db.Model, UserMixin):
     id = db.Column(db.Integer, primary_key=True)
     email = db.Column(db.String(100), unique=True, nullable=False)
     password = db.Column(db.String(80), nullable=False)
 
-
-# User loader function for login manager
 @login_manager.user_loader
 def load_user(user_id):
     return User.query.get(int(user_id))
 
-
-# Gemini text route
-@app.route("/gemini-text", methods=["POST"])
-def gemini_text():
-    try:
-        prompt_text = request.get_json().get('text_gemini')
-        print('getting message for the gemini prompt from fetch :  ', prompt_text);
-        response = model.generate_content(prompt_text)
-        if response and response.text:
-            print(f"success Gemini Api text : {response.text}")
-            return jsonify({"gemini_message": response.text})
-        return jsonify({"error": "API error or No response"}), 500
-    except Exception as e:
-        print("Internal Error Gemini API Request text:" + str(e))
-        return jsonify({'error': "Error with gemini API connection request : " + str(e)}), 500
-
-
-# Basic Routes
+# Routes
 @app.route('/')
 def home():
     return render_template('index.html')
-
 
 @app.route('/about')
 def about():
     return render_template('about.html')
 
-
 @app.route('/contact')
 def contact():
     return render_template('contact.html')
 
-
-# Ctscan route for user that are logged in
-@app.route('/ctscan')
-@login_required
-def ctscan():
-    return render_template('ctscan.html')
-
-#Chat bot for authenticated users.
 @app.route('/chatbot')
 @login_required
 def chatbot():
     return render_template('chatbot.html')
 
+@app.route('/ctscan')
+@login_required
+def ctscan():
+    return render_template('ctscan.html')
 
-# Handle POST request by forms by `ctscan.html` to invoke predictions.
+@app.route('/gemini-text', methods=["POST"])
+def gemini_text():
+    try:
+        prompt_text = request.get_json().get('text_gemini')
+        response = model.generate_content(prompt_text)
+        if response and response.text:
+            return jsonify({"gemini_message": response.text})
+        return jsonify({"error": "API error or no response"}), 500
+    except Exception as e:
+        return jsonify({'error': str(e)}), 500
+
 @app.route('/ctscan_predict', methods=['POST'])
 @login_required
 def ctscan_predict():
@@ -123,92 +103,102 @@ def ctscan_predict():
 
     if image_file.filename == '':
         return jsonify({'error': 'No image selected'}), 400
+
     try:
         file_extension = os.path.splitext(image_file.filename)[1]
         unique_file_name = f"{uuid.uuid4()}{file_extension}"
         image_path = os.path.join(temp_upload_dir, unique_file_name)
-
         image_file.save(image_path)
-        print(f"Image saved to : {image_path}")
 
-         # old  double methods not here # we use new API imported logic methods to call to replace it
-
-         # bone_type_result = predictor.predict(image_path)
-         #   print(f"Result by Model type of {bone_type_result}")
-         # result = predictor.predict(image_path, bone_type_result)
-
-         #Call api_predict method function directly now and remove class methods to do predictions .
-       #  prediction = json.loads(api_predict(image_path))  # api response is string need parsed as json since this old logic do response string
-        prediction  = api_predict(image_path)  # call only response to this since return is also json with  key .  remove conversion here since it is json by string no conversion here to another JSON objet needed in that Flask code
-        #  prediction = api_predict(image_path).replace('"', '').replace('\'','')
-       #  remove above conversion . since you are getting text output  no need replace character with this way of JSON , since this JSON output, will send automatically string property values
-
-        # delete image when it was consumed from process api_prediction
-
+        prediction = api_predict(image_path)
         os.remove(image_path)
-        # build correct  response of same type. from your api of old models format to your page view
 
         response = {
-           'patient_name': patient_name,
-           'result_status': json.loads(prediction)['predicted_class'] # ensure use your name property from returned data response  'predicted_class'
-
-         }
-        return jsonify(response) #  Return from this part ,since all works
+            'patient_name': patient_name,
+            'bone_type': 'N/A',
+            'fracture_status': json.loads(prediction)['predicted_class']
+        }
+        return jsonify(response)
     except Exception as e:
-         print("Error on response flask  side processing ", str(e))
-         return jsonify({'error': str(e)}), 500
+        return jsonify({'error': str(e)}), 500
 
-# Registration Routes
+@app.route('/predict', methods=['POST'])
+@login_required
+def predict_image():
+    if 'image' not in request.files:
+        return jsonify({'error': 'No image file provided'}), 400
+
+    image_file = request.files['image']
+
+    if image_file.filename == '':
+        return jsonify({'error': 'No image selected'}), 400
+
+    try:
+        image_path = os.path.join(temp_upload_dir, image_file.filename)
+        image_file.save(image_path)
+
+        bone_type_result = bone_predictor.predict(image_path)
+        result = bone_predictor.predict(image_path, bone_type_result)
+        os.remove(image_path)
+
+        response = {
+            'bone_type': bone_type_result.strip(),
+            'fracture_status': result.strip()
+        }
+        return jsonify(response)
+    except Exception as e:
+        return jsonify({'error': str(e)}), 500
+
 @app.route('/register', methods=['GET', 'POST'])
 def register():
     if request.method == 'POST':
         email = request.form['email']
         password = request.form['password']
         confirm_password = request.form['confirm_password']
+
         if not re.match(r"[^@]+@[^@]+\.[^@]+", email):
             flash('Invalid email address.')
             return redirect(url_for('register'))
+
         if password != confirm_password:
             flash("Passwords do not match.")
             return redirect(url_for('register'))
 
         hashed_password = bcrypt.generate_password_hash(password).decode('utf-8')
         user = User.query.filter_by(email=email).first()
+
         if user:
-            flash("Email Already Exist ,Please chose another One..")
+            flash("Email already exists.")
             return redirect(url_for('register'))
 
         new_user = User(email=email, password=hashed_password)
         db.session.add(new_user)
         db.session.commit()
-        flash("Your account has been registered. Please Login Now.")
+        flash("Registration successful. Please log in.")
         return redirect(url_for('login'))
     return render_template('register.html')
 
-# Login Routes
 @app.route('/login', methods=['GET', 'POST'])
 def login():
     if request.method == 'POST':
         email = request.form['email']
         password = request.form['password']
         user = User.query.filter_by(email=email).first()
+
         if user and bcrypt.check_password_hash(user.password, password):
             login_user(user)
             return redirect(url_for('chatbot'))
         else:
-            flash('Login failed. Please check username and password.')
+            flash('Login failed. Check your credentials.')
     return render_template('login.html')
 
-# Logout route for the user
 @app.route('/logout')
 @login_required
 def logout():
     logout_user()
     return redirect(url_for('home'))
 
-# Main App Start Point
 if __name__ == '__main__':
     with app.app_context():
         db.create_all()
-    os.makedirs(os.path.join(project_folder, "temp_upload_file"), exist_ok=True)
     app.run(debug=True)
