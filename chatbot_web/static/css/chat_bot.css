@@ -35,10 +35,10 @@ header nav a {
     text-decoration: none;
     color: #ffffff;
     background-color: #371553;
-    padding: 6px 12px;  /* Smaller buttons */
+    padding: 10px 15px;  /* Smaller buttons */
     border-radius: 5px;
     font-weight: bold;
-    font-size: 13px;  /* Slightly smaller font */
+    font-size: 16px;  /* Slightly smaller font */
     transition: all 0.3s ease;
 }
 
