@@ -1,27 +1,59 @@
-{% extends 'base.html' %}
-<!-- templates/chatbot.html -->
- {% block title %} Chatbot {% endblock %}
-  {% block head %}
-      <link rel="stylesheet" href="{{ url_for('static', filename='css/chatbot.css')}}">
-  {% endblock %}
-{% block content %}
-<div class="chat-container">
- <div class="chat-header">Medical Image Diagnosis Chatbot</div>
- <div class="chat-history">  </div>
- <div class="chat-input-area">
-    <div class="file-upload-wrapper">
-        <label for="image-input" class="file-label">Upload Image</label>
-        <input type="file" id="image-input" accept="image/*">
-    </div>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chatbot - Smart Diagnostic AI</title>
+    <link rel="stylesheet" type="text/css" href="../static/css/chat_bot.css">
+</head>
+<body>
 
-    <div class="text-prompt-wrapper">
-        <input type="text" id="prompt-input" placeholder="Type your prompt or ask for info...">
-    </div>
+<header>
+    <nav class="nav_part">
+        <a href="{{ url_for('home') }}">Home</a>
+        {% if current_user.is_authenticated %}
+            <a href="{{ url_for('logout') }}">Logout</a>
+        {% else %}
+            <a href="{{ url_for('login') }}">Login</a>
+            <a href="{{ url_for('register') }}">Signup</a>
+        {% endif %}
+        <a href="{{ url_for('about') }}">About Us</a>
+        <a href="{{ url_for('contact') }}">Contact Us</a>
+    </nav>
+</header>
 
-    <div class="button-wrapper">
-        <button id="send-btn" class="send-button">Analyze</button>
+<main>
+    <div class="chat-container">
+        <div class="chat-header">Medical Image Diagnosis Chatbot</div>
+        
+        <!-- Chat History -->
+        <div class="chat-history"></div>
+
+        <!-- Gemini Chat Input -->
+        <div class="chat-input-area">
+            <input type="text" id="prompt-input" placeholder="Ask Gemini a question...">
+            <button id="send-text-btn" class="send-button">➤</button>
+        </div>
+
+        <!-- Dropdown for selecting analysis type -->
+        <div class="analysis-selection">
+            <label for="analysis-type">Select Analysis Type:</label>
+            <select id="analysis-type">
+                <option value="bone">Bone Fracture Detection</option>
+                <option value="ctscan">CT Scan Analysis</option>
+            </select>
+        </div>
+
+        <!-- File Upload Section -->
+        <div class="file-upload-wrapper">
+            <input type="file" id="image-input" accept="image/*">
+        </div>
+
+        <!-- Analyze Button -->
+        <button id="analyze-btn" class="analyze-button">Analyze</button>
     </div>
-</div>
-</div>
-</div>
-{% endblock %}
+</main>
+
+<script src="../static/script.js"></script>
+</body>
+</html>
