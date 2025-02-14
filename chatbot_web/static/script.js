@@ -96,8 +96,8 @@ document.addEventListener('DOMContentLoaded', function () {
               (analysisType.value === "ctscan" && data.fracture_status.toLowerCase() !== "normal")) {
 
               let geminiPrompt = analysisType.value === "bone"
-                  ? `A bone fracture has been detected. Please provide 2 precautionary and safety measures in a short manner.`
-                  : `The CT scan shows ${data.fracture_status} abnormality. Please provide 2 safety measures in short manner.`;
+                  ? `A bone fracture has been detected. Please provide 2 immediate precautionary and safety measures in a short manner. Make sure it is not suggested that the patient should visit a hospital/doctor.`
+                  : `The CT scan shows ${data.fracture_status} abnormality. Please provide 2 immediate precautionary safety measures in short related to the ${data.fracture_status} .Make sure it is not suggested that the patient should visit a hospital/doctor/monitering symptoms.`;
 
               sendToGemini(geminiPrompt);
           }
